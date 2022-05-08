@@ -18,12 +18,15 @@ queue<string> db;
 
 void process_queue() {
 	for(;;) {
-    // unique_lock diferente do lock_guard apenas no fato de que podemos dar unlock no unique_lock explicitamente
-    // e não apenas quando estivermos saindo do escopo do lock.
+	    // unique_lock diferente do lock_guard apenas no fato de que podemos dar unlock no unique_lock explicitamente
+	    // e não apenas quando estivermos saindo do escopo do lock.
 		unique_lock<mutex> lg(m);
 		if(q.empty()) {
-      // o mutex é unlocked enquanto ela tá bloqueada
-      // e a notificação só libera esse wait se pred for true
+			// o mutex é unlocked enquanto ela tá bloqueada
+			// e a notificação só libera esse wait se pred for true	
+			// ter cuidado com spurious wakeup.. é bom que a função pred
+			// não tenha side-effects, justamente por conta de como o wait é
+			// implementado
 			data_cond.wait(lg, []() { return !q.empty(); } );
 		}
 		cout << q.front() << endl;
@@ -39,7 +42,7 @@ void fill_queue() {
 		lock_guard<mutex> lg(m);
 		q.push(db.front());	
 		db.pop();
-    // unlock apenas uma thread
+		// unlock apenas uma thread
 		data_cond.notify_one(); // 2: notify_all()
 	}
 }
