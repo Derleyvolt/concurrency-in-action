@@ -9,6 +9,8 @@
 
 using namespace std;
 
+// EXEMPLO USANDO O CLÁSSICO PROBLEMA DO PRODUTOR E CONSUMIDOR.
+
 queue<string> q;
 
 std::mutex m;
