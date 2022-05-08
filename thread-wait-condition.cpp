@@ -18,7 +18,7 @@ queue<string> db;
 
 void process_queue() {
 	for(;;) {
-	    // unique_lock diferente do lock_guard apenas no fato de que podemos dar unlock no unique_lock explicitamente
+	    // unique_lock difere do lock_guard apenas no fato de que podemos dar unlock no unique_lock explicitamente
 	    // e não apenas quando estivermos saindo do escopo do lock.
 		unique_lock<mutex> lg(m);
 		if(q.empty()) {
@@ -29,7 +29,7 @@ void process_queue() {
 			// implementado
 			data_cond.wait(lg, []() { return !q.empty(); } );
 		}
-		cout << q.front() << endl; 
+		cout << q.front() << endl;
 		q.pop();
 		lg.unlock();
 		this_thread::sleep_for(chrono::milliseconds(500));
