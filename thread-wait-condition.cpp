@@ -29,7 +29,7 @@ void process_queue() {
 			// implementado
 			data_cond.wait(lg, []() { return !q.empty(); } );
 		}
-		cout << q.front() << endl;
+		cout << q.front() << endl; 
 		q.pop();
 		lg.unlock();
 		this_thread::sleep_for(chrono::milliseconds(500));
