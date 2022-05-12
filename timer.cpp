@@ -3,6 +3,11 @@
 using namespace std;
 using namespace chrono;
 
+// duration<tipo, tick do relógio>
+// tipo                      = double se o tick for fracionário
+// tick do relógio           = unidade de tempo medido em segundos
+// tick.first / tick.second  = segundos necessários pra um tick do relógio 
+
 template<typename T = duration<int, std::ratio<1, 1>>>
 class Timer {
 public:
