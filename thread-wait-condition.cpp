@@ -28,6 +28,7 @@ void process_queue() {
 		// ter cuidado com spurious wakeup.. é bom que a função pred
 		// não tenha side-effects, justamente por conta de como o wait é
 		// implementado
+		// https://en.wikipedia.org/wiki/Spurious_wakeup
 		data_cond.wait(lg, []() { return !q.empty(); } );
 		cout << q.front() << endl;
 		q.pop();
